@@ -61,8 +61,8 @@ services:
   postgres:
     image: postgres:latest
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: dev@fos123
+      POSTGRES_USER: ******
+      POSTGRES_PASSWORD: *******
       POSTGRES_DB: weather
     ports:
       - "5432:5432"
