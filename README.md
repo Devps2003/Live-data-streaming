@@ -54,13 +54,3 @@ Once you have followed the steps above, you should see the produced messages bei
 ## Troubleshooting
 
 If you encounter any issues, ensure that Docker and Docker Compose are properly installed and running. Check the logs of the containers using the `docker-compose logs` command to identify and resolve any errors.
-
-## Contributing
-
-Contributions are welcome! Please feel free to fork this repository and submit pull requests for improvements or enhancements.
-
-## License
-
-This project is licensed under the MIT License. See the LICENSE file for details.
-
-I hope this helps! Let me know if you have any further questions or concerns.
