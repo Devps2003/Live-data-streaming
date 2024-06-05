@@ -15,8 +15,8 @@ def consume_kafka_messages(topic):
     conn = psycopg2.connect(
         host='postgres',
         database='weather',
-        user='postgres',
-        password='dev@fos123'
+        user='*******',
+        password='*******'
     )
     cursor = conn.cursor()
 
