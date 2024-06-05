@@ -1,0 +1,4 @@
+kafka-python
+schedule
+faker
+psycopg2-binary

@@ -1,0 +1,9 @@
+# Dockerfile-flink
+FROM flink:latest
+
+WORKDIR /app
+
+
+COPY flink_job.sql flink_job.sql
+
+CMD ["bash", "-c", "/opt/flink/bin/sql-client.sh embedded -d /app/flink_job.sql"]

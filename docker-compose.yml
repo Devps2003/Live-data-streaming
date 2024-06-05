@@ -1,0 +1,70 @@
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - "2181:2181"
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    ports:
+      - "9092:9092"
+
+  producer:
+    build:
+      context: .
+      dockerfile: Dockerfile-producer
+    depends_on:
+      - kafka
+    environment:
+      KAFKA_NODES: kafka:9092
+      TOPIC: weather
+
+  consumer:
+    build:
+      context: .
+      dockerfile: Dockerfile-consumer
+    depends_on:
+      - kafka
+      - postgres
+    environment:
+      KAFKA_NODES: kafka:9092
+      TOPIC: weather
+
+  flink:
+    build:
+      context: .
+      dockerfile: Dockerfile-flink
+    depends_on:
+      - kafka
+    environment:
+      FLINK_LOG_LEVEL: DEBUG
+      KAFKA_NODES: kafka:9092
+      TOPIC: weather
+    ports:
+      - "8081:8081"
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 4096M
+
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: dev@fos123
+      POSTGRES_DB: weather
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./setup_postgres.sql:/docker-entrypoint-initdb.d/setup_postgres.sql
