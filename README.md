@@ -1,6 +1,5 @@
 # Live-data-streaming
 
-Here is a sample README file for your project:
 
 # Kafka Docker Example
 
