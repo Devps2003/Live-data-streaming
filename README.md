@@ -1,4 +1,4 @@
-# Live-data-streaming
+# Live Data Streaming
 
 
 # Kafka Docker Example
